@@ -2,6 +2,7 @@ import java.io.Serializable;
 
 public class CustomerMain implements Serializable {
     private int customerid;
+    private int balance;  
     private String customername;
     private String address;
     private String pin;
@@ -39,6 +40,7 @@ public class CustomerMain implements Serializable {
     public String getphoneno() {
         return phoneno;
     }
+
     public void setphoneno(String phoneno) {
         if (isValidPhoneNumber(phoneno)) {
             this.phoneno = phoneno;
@@ -58,6 +60,12 @@ public class CustomerMain implements Serializable {
             
             throw new IllegalArgumentException("Invalid date of birth format");
         }
+    }
+    public int getbalance() {
+        return balance;
+    }
+    public void setbalance(int balance) {
+        this.balance = balance;
     }
     
     
