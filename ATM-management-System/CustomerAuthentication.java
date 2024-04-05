@@ -150,8 +150,8 @@ public void deposit() {
 	
 public void viewaccount()	{
 	CustomerMain tempobj = customerlist.get(customerindexno);
-		System.out.println("User's ID: "+ tempobj.getcustomername());
-		System.out.println("User's Name: "+ tempobj.getcustomerid());
+		System.out.println("User's ID: "+ tempobj.getcustomerid());
+		System.out.println("User's Name: "+ tempobj.getcustomername());
 		System.out.println("User's Balance: "+ tempobj.getbalance());
 		System.out.println("User's Address: "+ tempobj.getaddress());
 		System.out.println("User's Phone Number: "+ tempobj.getphoneno());

@@ -7,7 +7,9 @@ public class WelcomePage {
 	CustomerAuthentication obj = new CustomerAuthentication();
 	do
 	{
-	System.out.println("WELCOME TO ATM MANAGEMENT SYSTEM");
+	System.out.println("=========================================");
+	System.out.println("    WELCOME TO ATM MANAGEMENT SYSTEM");
+	System.out.println("=========================================");
 	System.out.println("1. SIGN UP ");
 	System.out.println("2. SIGN IN ");
 	System.out.println("Please select the option");
