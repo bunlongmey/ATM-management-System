@@ -11,7 +11,9 @@ public class CustomerAuthentication {
     private ArrayList<CustomerMain> customerlist = new ArrayList<CustomerMain>();
 	private Scanner sc = new Scanner(System.in);
 	private boolean isAuthenticated = false;
-	
+	private int cash;
+	private int customerindexno = -1;
+	private String x;
 public void signup()
 	{
 		String reply;
@@ -51,6 +53,9 @@ public void signup()
 			
 			System.out.println("Enter your date of birth MM/DD/YYYY: ");
 			obj.setdob(sc.nextLine());
+			
+			System.out.println("Enter your Amount you want to put in: ");
+			obj.setbalance(sc.nextInt());
 		
 			customerlist.add(obj);
 			writeArrayListToFile();
@@ -64,8 +69,6 @@ public void writeArrayListToFile()
 	ObjectOutputStream oout = new ObjectOutputStream(fout);
 	//WRITE ARRAYLIST OBJECT INTO FILE 
 	oout.writeObject(customerlist);
-	
-	System.out.println("Your account has been successfully registered!");
   
   }catch(FileNotFoundException e){System.out.println(e.toString());}
    catch(IOException e) {System.out.print(e.toString());}
@@ -81,14 +84,14 @@ public void readArrayListFromFile()
 	//READ DATA FROM FILE AND STORE IT IN ARRAYLIST 
 	customerlist = (ArrayList<CustomerMain>)oin.readObject();
   
-	System.out.println("READING FROM FILE COMPLETED.....");
+
   }catch(FileNotFoundException e){System.out.println(e.toString());}
    catch(IOException e) {System.out.print(e.toString());}
    catch(Exception e) {System.out.print(e.toString());}
   
 }
 
-public void signin() {
+public String signin() {
     // Read customer data from file
 	isAuthenticated = false;
     readArrayListFromFile();
@@ -100,9 +103,11 @@ public void signin() {
     System.out.println("Enter your pin code: ");
     String pin = sc.nextLine();
 
-    	
-    for (CustomerMain customer : customerlist) {
-        if (customer.getcustomername().equals(username) && customer.getpin().equals(pin)) {
+    for(int i=0; i< customerlist.size(); i++)
+    {
+    	CustomerMain tempobj = customerlist.get(i);
+        if (tempobj.getcustomername().equals(username) && tempobj.getpin().equals(pin)) {
+        	customerindexno = i;
             isAuthenticated = true;
             break;
         }
@@ -110,13 +115,54 @@ public void signin() {
     
     // Display authentication result
     if (isAuthenticated) {
-        System.out.println("Login successful!");
+       return "X";
     } 
     else {
-        System.out.println("Invalid username or PIN. Please try again.");
+       return "Y";
     	}
     
 	}
+public void withdraw() {	
+	System.out.println("Enter the Amount that you want to withdraw: ");
+	int cashs= sc.nextInt();	
+	CustomerMain tempobj = customerlist.get(customerindexno);
+		cash =tempobj.getbalance()- cashs;
+		if (cash>=0)
+		{
+			tempobj.setbalance(cash);		
+			customerlist.set(customerindexno, tempobj);		
+			System.out.println("You Have Withdrawn:"+ cashs);
+		}
+		else {
+			System.out.println("You Do Not Have Enough Amount To withdraw");
+		}
+	}
+public void deposit() {	
+	System.out.println("Enter the Amount that you want to Deposit: ");
+	int cashs= sc.nextInt();	
+	CustomerMain tempobj = customerlist.get(customerindexno);
+		cash =tempobj.getbalance()+ cashs;	
+		tempobj.setbalance(cash);	
+		customerlist.set(customerindexno, tempobj);		
+		System.out.println("You Have Deposited:"+ cashs);		
+	}
+
+	
+public void viewaccount()	{
+	CustomerMain tempobj = customerlist.get(customerindexno);
+		System.out.println("User's ID: "+ tempobj.getcustomername());
+		System.out.println("User's Name: "+ tempobj.getcustomerid());
+		System.out.println("User's Balance: "+ tempobj.getbalance());
+		System.out.println("User's Address: "+ tempobj.getaddress());
+		System.out.println("User's Phone Number: "+ tempobj.getphoneno());
+		System.out.println("User's Date Of Birth: "+ tempobj.getdob());
+	
+	}
 }
 
-// Changes
+// <<<<<<< main
+
+
+// =======
+// // Changes
+// >>>>>>> main
